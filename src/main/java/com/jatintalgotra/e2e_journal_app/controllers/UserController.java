@@ -28,7 +28,7 @@ public class UserController {
         return uService.getAllUsers();
     }
 
-    @GetMapping("/{id}")  //code 200 ok by default. exception handles 404 not found
+    @GetMapping("/id/{id}")  //code 200 ok by default. exception handles 404 not found
     public User getById(@PathVariable Long id) {
         return uService.getUserById(id);
     }
@@ -44,14 +44,21 @@ public class UserController {
         return new ResponseEntity<>(uService.addEntry(newUser), HttpStatus.CREATED);
     }
 
-    @PutMapping("/{id}")  // code 200 by default. 404 handled by exceptions
-    public User putEntry(@PathVariable Long id, @RequestBody User newUser) {
-        return uService.updateEntry(id, newUser);
+    @PutMapping("/{email}")  // code 200 by default. 404 handled by exceptions
+    public User putEntry(@PathVariable String email, @RequestBody User newUser) {
+        return uService.updateEntry(email, newUser);
     }
 
-    @DeleteMapping("/{id}")  // 204 no content. 404 handled by exception
+    @DeleteMapping("/id/{id}")  // 204 no content. 404 handled by exception
     public ResponseEntity<?> deleteById(@PathVariable Long id){
         uService.deleteId(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+    @DeleteMapping("/{email}")  // 204 no content. 404 handled by exception
+    public ResponseEntity<?> deleteById(@PathVariable String email){
+        User existing = uService.getUserByEmail(email);
+        uService.deleteId(existing.getId());
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+    
 }

@@ -39,8 +39,8 @@ public class UserService {
     }
 
     // update (put mapping)
-    public User updateEntry(Long id, User newUser){
-        User existing = uRepo.findById(id)
+    public User updateEntry(String email, User newUser){
+        User existing = uRepo.findByEmail(email)
                                 .orElseThrow(() -> new UserNotFound("no such user"));
         existing.setDisplayName(newUser.getDisplayName());
         existing.setEmail(newUser.getEmail());
