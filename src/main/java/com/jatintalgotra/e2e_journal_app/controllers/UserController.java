@@ -28,35 +28,30 @@ public class UserController {
         return uService.getAllUsers();
     }
 
-    @GetMapping("/id/{id}")  //code 200 ok by default. exception handles 404 not found
-    public User getById(@PathVariable Long id) {
-        return uService.getUserById(id);
-    }
+    // @GetMapping("/id/{id}")  //code 200 ok by default. exception handles 404 not found
+    // public User getById(@PathVariable Long id) {
+    //     return uService.getUserById(id);
+    // }
 
     // another one for email
-    @GetMapping("/{email}")
-    public User getByEmail(@PathVariable String email){
-        return uService.getUserByEmail(email);
+    @GetMapping("/{userName}")
+    public User getByUsername(@PathVariable String userName){
+        return uService.getUserByUsername(userName);
     }
     
     @PostMapping   // code 201 - created. spring automatically handles 400 bad request.
     public ResponseEntity<User> postNewEntry(@RequestBody User newUser) {
-        return new ResponseEntity<>(uService.addEntry(newUser), HttpStatus.CREATED);
+        return new ResponseEntity<>(uService.addUser(newUser), HttpStatus.CREATED);
     }
 
-    @PutMapping("/{email}")  // code 200 by default. 404 handled by exceptions
-    public User putEntry(@PathVariable String email, @RequestBody User newUser) {
-        return uService.updateEntry(email, newUser);
+    @PutMapping("/{userName}")  // code 200 by default. 404 handled by exceptions
+    public User putEntry(@PathVariable String userName, @RequestBody User newUser) {
+        return uService.updateUser(userName, newUser);
     }
 
-    @DeleteMapping("/id/{id}")  // 204 no content. 404 handled by exception
-    public ResponseEntity<?> deleteById(@PathVariable Long id){
-        uService.deleteId(id);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-    }
-    @DeleteMapping("/{email}")  // 204 no content. 404 handled by exception
-    public ResponseEntity<?> deleteById(@PathVariable String email){
-        User existing = uService.getUserByEmail(email);
+    @DeleteMapping("/username/{userName}")  // 204 no content. 404 handled by exception
+    public ResponseEntity<?> deleteByUsername(@PathVariable String userName){
+        User existing = uService.getUserByUsername(userName);
         uService.deleteId(existing.getId());
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

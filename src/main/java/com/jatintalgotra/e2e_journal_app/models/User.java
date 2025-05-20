@@ -25,7 +25,10 @@ public class User {
     @Column(unique = true, nullable = false)
     private String email;
 
-    private String displayName;
+    @Column(unique = true, nullable = false)
+    private String username;
+
+    // private String displayName;
 
     @Column(nullable = false)
     private String password;

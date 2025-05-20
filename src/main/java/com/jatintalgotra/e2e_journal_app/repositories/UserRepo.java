@@ -7,5 +7,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.jatintalgotra.e2e_journal_app.models.User;
 
 public interface UserRepo extends JpaRepository<User, Long> {
-    Optional<User> findByEmail(String Email);
+    Optional<User> findByUsername(String Email);
+    void deleteByUsername(String uname);
+
+
 }

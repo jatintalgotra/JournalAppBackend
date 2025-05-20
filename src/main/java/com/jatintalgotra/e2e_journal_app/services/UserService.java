@@ -19,31 +19,32 @@ public class UserService {
         return uRepo.findAll();
     }
 
-    // get one by id
-    public User getUserById(Long id){
-        User existing = uRepo.findById(id)
-                                .orElseThrow(() -> new UserNotFound("no such user found"));
-        return existing;
-    }
+    // // get one by id
+    // public User getUserById(Long id){
+    //     User existing = uRepo.findById(id)
+    //                             .orElseThrow(() -> new UserNotFound("no such user found"));
+    //     return existing;
+    // }
 
-    // get by username
-    public User getUserByEmail(String email){
-        User existing = uRepo.findByEmail(email)
+    // get by userName
+    public User getUserByUsername(String userName){
+        User existing = uRepo.findByUsername(userName)
                                 .orElseThrow(()-> new UserNotFound("no such user"));
         return existing;
     }
 
     // creating method (post)
-    public User addEntry(User entry){
+    public User addUser(User entry){
         return uRepo.save(entry);
     }
 
     // update (put mapping)
-    public User updateEntry(String email, User newUser){
-        User existing = uRepo.findByEmail(email)
+    public User updateUser(String userName, User newUser){
+        User existing = uRepo.findByUsername(userName)
                                 .orElseThrow(() -> new UserNotFound("no such user"));
-        existing.setDisplayName(newUser.getDisplayName());
+        // existing.setDisplayName(newUser.getDisplayName());
         existing.setEmail(newUser.getEmail());
+        existing.setUsername(newUser.getUsername());
         existing.setPassword(newUser.getPassword());
         return uRepo.save(existing);
     }
