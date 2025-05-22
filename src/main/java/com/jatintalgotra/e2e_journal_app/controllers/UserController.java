@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.jatintalgotra.e2e_journal_app.dto.UserDTO;
 import com.jatintalgotra.e2e_journal_app.models.User;
 import com.jatintalgotra.e2e_journal_app.services.UserService;
 
@@ -24,35 +25,30 @@ public class UserController {
     private UserService uService;
 
     @GetMapping   // 200 ok by default.
-    public List<User> getAll(){
+    public List<UserDTO> getAll(){
         return uService.getAllUsers();
     }
 
-    // @GetMapping("/id/{id}")  //code 200 ok by default. exception handles 404 not found
-    // public User getById(@PathVariable Long id) {
-    //     return uService.getUserById(id);
-    // }
-
     // another one for email
     @GetMapping("/{userName}")
-    public User getByUsername(@PathVariable String userName){
-        return uService.getUserByUsername(userName);
+    public UserDTO getByUsername(@PathVariable String userName){
+        return uService.getUserDTOByUsername(userName);
     }
     
     @PostMapping   // code 201 - created. spring automatically handles 400 bad request.
-    public ResponseEntity<User> postNewEntry(@RequestBody User newUser) {
+    public ResponseEntity<UserDTO> postNewEntry(@RequestBody User newUser) {
         return new ResponseEntity<>(uService.addUser(newUser), HttpStatus.CREATED);
     }
 
     @PutMapping("/{userName}")  // code 200 by default. 404 handled by exceptions
-    public User putEntry(@PathVariable String userName, @RequestBody User newUser) {
+    public UserDTO putEntry(@PathVariable String userName, @RequestBody User newUser) {
         return uService.updateUser(userName, newUser);
     }
 
-    @DeleteMapping("/username/{userName}")  // 204 no content. 404 handled by exception
+    @DeleteMapping("/{userName}")  // 204 no content. 404 handled by exception
     public ResponseEntity<?> deleteByUsername(@PathVariable String userName){
-        User existing = uService.getUserByUsername(userName);
-        uService.deleteId(existing.getId());
+        
+        uService.deleteUser(userName);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
     

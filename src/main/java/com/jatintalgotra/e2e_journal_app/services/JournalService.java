@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
 
+import com.jatintalgotra.e2e_journal_app.dto.JournalDTO;
 import com.jatintalgotra.e2e_journal_app.exceptions.ContentNotFound;
 import com.jatintalgotra.e2e_journal_app.models.JournalEntry;
 import com.jatintalgotra.e2e_journal_app.models.User;
@@ -16,29 +16,33 @@ public class JournalService {
     @Autowired
     private JournalRepo jRepo;
 
+    // connected j service to u service instead of adding to j controller.
     @Autowired
     private UserService uService;
     
     // get all method
-    public List<JournalEntry> getAllEntriesOfUser(String userName){
+    public List<JournalDTO> getAllEntriesOfUser(String userName){
         User user = uService.getUserByUsername(userName);
-        return jRepo.findAllByUserId(user.getId());
+        
+        return JournalDTO.mapList(jRepo.findAllByUserId(user.getId()));
     }
 
-    // get one by id
-    // public JournalEntry getEntryById(Long id){
-    //     JournalEntry existing = jRepo.findById(id)
-    //                             .orElseThrow(() -> new ContentNotFound("no entry found"));
-    //     return existing;
-    // }
-
-    // creating method (post)
-    public JournalEntry addEntryForUser(JournalEntry entry, String userName){
+    // post mapping - new creating method
+    public JournalDTO addEntryForUser(JournalEntry entry, String userName){
+        // handle direct entities only in service layer, not in controller
         User user = uService.getUserByUsername(userName);
         user.getJournals().add(entry);
         entry.setUser(user);
-        return jRepo.save(entry);
+        return new JournalDTO(jRepo.save(entry));
     }
+
+    // get one by id
+    public JournalDTO getEntryById(Long id){
+        JournalEntry existing = jRepo.findById(id)
+                                .orElseThrow(()-> new ContentNotFound("no entry found"));
+        return new JournalDTO(existing);
+    }
+
 
     // update (put mapping)
     // public JournalEntry updateEntry(Long id, JournalEntry newEntry){
