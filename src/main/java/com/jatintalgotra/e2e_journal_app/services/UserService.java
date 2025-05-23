@@ -47,7 +47,6 @@ public class UserService {
                                 .orElseThrow(() -> new UserNotFound("no such user"));
         // existing.setDisplayName(newUser.getDisplayName());
         existing.setEmail(newUser.getEmail());
-        existing.setUsername(newUser.getUsername());
         existing.setPassword(newUser.getPassword());
         return new UserDTO(uRepo.save(existing));
     }

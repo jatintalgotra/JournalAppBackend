@@ -11,10 +11,12 @@ import com.jatintalgotra.e2e_journal_app.dto.JournalDTO;
 import com.jatintalgotra.e2e_journal_app.models.JournalEntry;
 import com.jatintalgotra.e2e_journal_app.services.JournalService;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 
@@ -39,19 +41,20 @@ public class JournalController {
         return new ResponseEntity<>(newEntry, HttpStatus.CREATED);
     }
     
-    @GetMapping("/{id}")  //code 200 ok by default. exception handles 404 not found
+    @GetMapping("/id/{id}")  //code 200 ok by default. exception handles 404 not found
     public JournalDTO getById(@PathVariable Long id) {
         return jService.getEntryById(id);
     }
 
-    // @PutMapping("/{id}")  // code 200 by default. 404 handled by exceptions
-    // public JournalEntry putEntry(@PathVariable Long id, @RequestBody JournalEntry entry) {
-    //     return jService.updateEntry(id, entry);
-    // }
 
-    // @DeleteMapping("/{id}")  // 204 no content. 404 handled by exception
-    // public ResponseEntity<?> deleteById(@PathVariable Long id){
-    //     jService.deleteEntryById(id);
-    //     return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-    // }
+    @PutMapping("/id/{id}")  // code 200 by default. 404 handled by exceptions
+    public JournalDTO putEntry(@PathVariable Long id, @RequestBody JournalEntry entry) {
+        return jService.updateEntry(id, entry);
+    }
+
+    @DeleteMapping("/id/{id}")  // 204 no content. 404 handled by exception
+    public ResponseEntity<?> deleteById(@PathVariable Long id){
+        jService.deleteEntryById(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 }

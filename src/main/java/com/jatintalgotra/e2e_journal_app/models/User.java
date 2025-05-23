@@ -1,5 +1,6 @@
 package com.jatintalgotra.e2e_journal_app.models;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
@@ -36,5 +37,5 @@ public class User {
     // fetchtype by default lazy becuse JPA assume many side to be bulky (collections)
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL) 
     //cascade on the one side since only if the one is deleted, all the many are alse deleted
-    private List<JournalEntry> journals;
+    private List<JournalEntry> journals = new ArrayList<>();
 }

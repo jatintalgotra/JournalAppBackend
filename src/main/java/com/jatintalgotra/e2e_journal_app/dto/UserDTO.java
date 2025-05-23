@@ -11,18 +11,20 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 public class UserDTO {
-    private Long id;
+    private Long user_id;
     private String email;
     private String username;
     // private String password;
-    private List<JournalDTO> journals;
+    // private List<JournalDTO> journals;
+    private Long journalCount;
 
     public UserDTO(User user){
-        this.id = user.getId();
+        this.user_id = user.getId();
         this.email = user.getEmail();
         this.username = user.getUsername();
         // this.password = user.getPassword();S
-        this.journals = JournalDTO.mapList(user.getJournals());
+        // this.journals = JournalDTO.mapList(user.getJournals());
+        this.journalCount = Long.valueOf(user.getJournals().size());
     }
 
     public static List<UserDTO> mapList(List<User> users) {

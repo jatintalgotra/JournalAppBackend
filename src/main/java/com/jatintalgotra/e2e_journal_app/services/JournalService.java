@@ -45,20 +45,20 @@ public class JournalService {
 
 
     // update (put mapping)
-    // public JournalEntry updateEntry(Long id, JournalEntry newEntry){
-    //     JournalEntry existing = jRepo.findById(id)
-    //                                     .orElseThrow(() -> new ContentNotFound("no entry found"));
-    //     existing.setContent(newEntry.getContent());
-    //     existing.setTitle(newEntry.getTitle());
-    //     return jRepo.save(existing);
-    // }
+    public JournalDTO updateEntry(Long id, JournalEntry newEntry){
+        JournalEntry existing = jRepo.findById(id)
+                                        .orElseThrow(() -> new ContentNotFound("no entry found"));
+        existing.setContent(newEntry.getContent());
+        existing.setTitle(newEntry.getTitle());
+        return new JournalDTO(jRepo.save(existing)) ;
+    }
     
-    // // deleting method
-    // public void deleteEntryById(Long id){
-    //     if(jRepo.existsById(id)){
-    //         jRepo.deleteById(id);;
-    //     }
-    //     else throw new ContentNotFound("no entry found");
-    // }
+    // deleting method
+    public void deleteEntryById(Long id){
+        if(jRepo.existsById(id)){
+            jRepo.deleteById(id);;
+        }
+        else throw new ContentNotFound("no entry found");
+    }
 
 }

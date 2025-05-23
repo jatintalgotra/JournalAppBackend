@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 public class JournalDTO {
-    private Long id;
+    private Long entry_id;
     private Instant createdAt;
     private Instant lastUpdated;
     private String title;
@@ -21,7 +21,7 @@ public class JournalDTO {
     private Long userId;
 
     public JournalDTO(JournalEntry entry){
-        this.id = entry.getId();
+        this.entry_id = entry.getId();
         this.createdAt = entry.getCreatedAt();
         this.lastUpdated = entry.getLastUpdated();
         this.title = entry.getTitle();
