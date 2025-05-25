@@ -1,42 +1,66 @@
-# 📓 SastaCab Journal API
+# 📓 Journal API — Spring Boot
 
-A backend journal logging system built with Spring Boot.
+A simple journal logging API built with Spring Boot, focused on clean structure and RESTful design.  
+This is **Phase 1 deployment**, done for showcasing to recruiters.
 
-> 🚀 **Live Demo (Phase 1)**: [Your Deployment Link](https://your-backend-url)
+> 🚀 **Live Demo**: [https://your-deployment-url](https://your-deployment-url)
 
-## 🧾 Features
+---
 
-- CRUD operations for user journals
-- RESTful API design
-- DTO-based responses
-- Phase 1: No authentication (open access)
-- Ready for further development
+## ✅ Features (Phase 1)
 
-## ⚙️ Tech Stack
+- User registration & journal entries
+- DTO-based responses to avoid recursion
+- CRUD endpoints for journal management
+- Minimal, open API (no auth for now)
+
+---
+
+## 📦 Tech Stack
 
 - Java 17+
 - Spring Boot
 - Maven
-- JPA (Hibernate)
-- H2/MySQL (choose your setup)
+- Spring Web, JPA
+- MySQL / H2
 
-## 📬 API Endpoints
+---
 
-| Method | Endpoint                  | Description               |
-|--------|---------------------------|---------------------------|
-| GET    | `/api/users`              | Get all users             |
-| GET    | `/api/users/{username}`   | Get user by username      |
-| GET    | `/api/journals/{username}`| Get all journals of user  |
-| POST   | `/api/journals/{username}`| Create a new journal      |
-| PUT    | `/api/journals/{id}`      | Update a journal          |
-| DELETE | `/api/journals/id/{id}`   | Delete journal by ID      |
+## 📬 Sample Endpoints
 
-## 🧪 Postman
+| Method | Endpoint                     | Description                     |
+|--------|------------------------------|---------------------------------|
+| GET    | `/api/users`                 | Get all users                   |
+| GET    | `/api/users/{username}`      | Get user by username            |
+| GET    | `/api/journals/{username}`   | Get all journals of a user      |
+| POST   | `/api/journals/{username}`   | Add journal entry for user      |
+| PUT    | `/api/journals/{id}`         | Update journal entry by ID      |
+| DELETE | `/api/journals/id/{id}`      | Delete journal entry by ID      |
 
-Use this sample journal payload:
+---
 
-```json
-{
-  "title": "My Day",
-  "content": "Today I deployed my first Spring Boot app!"
-}
+## 📌 Notes
+
+- No authentication yet (for quick deployment/demo)
+- Response objects use DTOs for clarity
+- Journal count included in user DTO for performance
+
+---
+
+## 📅 Upcoming (Phase 2 Plan)
+
+- JWT Authentication
+- Swagger/OpenAPI docs
+- Role-based access
+- Caching with Redis
+- Frontend (React or plain JS)
+- Deployment via Docker
+
+---
+
+## 👤 Author
+
+**Jatin Talgotra**
+
+> This is a Phase 1 demo for placement purposes.  
+> Full-featured version in progress.
