@@ -1,12 +1,7 @@
 # 📓 Journal API — Spring Boot
 
 A simple journal logging API built with Spring Boot, focused on clean structure and RESTful design.  
-This is **Phase 1 deployment**, done for showcasing to recruiters.
-
-> 🚀 **Live Demo**: [https://your-deployment-url](https://your-deployment-url)
-
----
-
+S
 ## ✅ Features (Phase 1)
 
 - User registration & journal entries
@@ -18,11 +13,11 @@ This is **Phase 1 deployment**, done for showcasing to recruiters.
 
 ## 📦 Tech Stack
 
-- Java 17+
+- Java 21
 - Spring Boot
 - Maven
 - Spring Web, JPA
-- MySQL / H2
+- MySQL
 
 ---
 
@@ -53,7 +48,6 @@ This is **Phase 1 deployment**, done for showcasing to recruiters.
 - Swagger/OpenAPI docs
 - Role-based access
 - Caching with Redis
-- Frontend (React or plain JS)
 - Deployment via Docker
 
 ---
@@ -62,5 +56,4 @@ This is **Phase 1 deployment**, done for showcasing to recruiters.
 
 **Jatin Talgotra**
 
-> This is a Phase 1 demo for placement purposes.  
-> Full-featured version in progress.
+> This is a Phase 1 demo for testing.  
