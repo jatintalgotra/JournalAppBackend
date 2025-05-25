@@ -11,6 +11,8 @@ import com.jatintalgotra.e2e_journal_app.models.JournalEntry;
 import com.jatintalgotra.e2e_journal_app.models.User;
 import com.jatintalgotra.e2e_journal_app.repositories.JournalRepo;
 
+import jakarta.transaction.Transactional;
+
 @Service
 public class JournalService {
     @Autowired
@@ -27,14 +29,6 @@ public class JournalService {
         return JournalDTO.mapList(jRepo.findAllByUserId(user.getId()));
     }
 
-    // post mapping - new creating method
-    public JournalDTO addEntryForUser(JournalEntry entry, String userName){
-        // handle direct entities only in service layer, not in controller
-        User user = uService.getUserByUsername(userName);
-        user.getJournals().add(entry);
-        entry.setUser(user);
-        return new JournalDTO(jRepo.save(entry));
-    }
 
     // get one by id
     public JournalDTO getEntryById(Long id){
@@ -43,8 +37,18 @@ public class JournalService {
         return new JournalDTO(existing);
     }
 
+    // post mapping - new creating method
+    @Transactional
+    public JournalDTO addEntryForUser(JournalEntry entry, String userName){
+        // handle direct entities only in service layer, not in controller
+        User user = uService.getUserByUsername(userName);
+        user.getJournals().add(entry);
+        entry.setUser(user);
+        return new JournalDTO(jRepo.save(entry));
+    }
 
     // update (put mapping)
+    @Transactional
     public JournalDTO updateEntry(Long id, JournalEntry newEntry){
         JournalEntry existing = jRepo.findById(id)
                                         .orElseThrow(() -> new ContentNotFound("no entry found"));

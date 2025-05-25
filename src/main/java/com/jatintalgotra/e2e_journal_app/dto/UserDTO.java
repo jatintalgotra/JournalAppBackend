@@ -17,6 +17,7 @@ public class UserDTO {
     // private String password;
     // private List<JournalDTO> journals;
     private Long journalCount;
+    
 
     public UserDTO(User user){
         this.user_id = user.getId();

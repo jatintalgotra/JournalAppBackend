@@ -10,6 +10,8 @@ import com.jatintalgotra.e2e_journal_app.exceptions.UserNotFound;
 import com.jatintalgotra.e2e_journal_app.models.User;
 import com.jatintalgotra.e2e_journal_app.repositories.UserRepo;
 
+import jakarta.transaction.Transactional;
+
 @Service
 public class UserService {
     @Autowired
@@ -36,12 +38,14 @@ public class UserService {
 
 
     // creating method (post)
+    @Transactional
     public UserDTO addUser(User entry){
         return new UserDTO(uRepo.save(entry));
     }
 
 
     // update (put mapping)
+    @Transactional //need to add @EnableTransactionManagement in main class
     public UserDTO updateUser(String userName, User newUser){
         User existing = uRepo.findByUsername(userName)
                                 .orElseThrow(() -> new UserNotFound("no such user"));
@@ -56,7 +60,6 @@ public class UserService {
     public void deleteUser(String userName){
         User existing = uRepo.findByUsername(userName)
                                 .orElseThrow(() -> new UserNotFound("no such user"));
-        Long id = existing.getId();
-        uRepo.deleteById(id);
+        uRepo.delete(existing);
     }
 }
